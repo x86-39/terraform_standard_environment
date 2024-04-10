@@ -1,0 +1,79 @@
+module "hetzner_vm" {
+  source     = "diademiemi/vm/hetzner"
+  version    = "2.0.0"
+
+  depends_on = [
+    hcloud_network.private_network,
+    hcloud_network_subnet.private_subnet
+  ]
+
+  for_each = { for vm in var.hetzner_vms : vm.name => vm }
+
+  name = each.value.name
+  domain = try(coalesce(each.value.domain, var.default_domain), null)
+  type = try(each.value.type, null)
+  image       = try(each.value.image, null)
+  datacenter    = try(coalesce(each.value.datacenter, var.default_datacenter), null)
+
+  enable_existing_ssh_keys = try(each.value.enable_existing_ssh_keys, false)
+  new_ssh_keys = try(each.value.new_ssh_keys, {})
+
+  labels = try(each.value.labels, {})
+
+  ipv6_enabled = try(each.value.ipv6_enabled, false)
+
+  network_id         = try(each.value.network_id, hcloud_network.private_network.id)
+  network_ip         = try(each.value.network_ip, null)
+  network_ip_aliases = try(each.value.network_ip_aliases, null)
+
+  ansible_name   = try(each.value.ansible_name, null)
+  ansible_host   = try(each.value.ansible_host, null)
+  ansible_user   = try(each.value.ansible_user, null)
+  ansible_ssh_pass = try(each.value.ansible_ssh_pass, null)
+  ansible_groups = try(each.value.ansible_groups, null)
+}
+
+module "hetzner_lb" {
+  source     = "diademiemi/loadbalancer/hetzner"
+  version    = "1.0.0"
+
+  depends_on = [
+    module.hetzner_vm
+  ]
+
+  for_each = { for lb in var.hetzner_lbs : lb.name => lb }
+
+  name = each.value.name
+  location = try(each.value.location, null)
+  network_zone = try(coalesce(each.value.network_zone, var.default_network_zone), null)
+  targets = each.value.targets
+
+  services = try(each.value.services, [])
+}
+
+# Create list like:
+# - name: "vm"
+#   value: $vm.value.primary_ipv4_address
+#   type: "A"
+# Ignore the domain, we get it in the DNS code
+locals {
+  dns_records_vms = [for vm_name, vm in module.hetzner_vm : {
+    name: vm.domain != null ? (length(split(".", vm.domain)) >= 3 ? "${vm.name}.${join(".", slice(split(".", vm.domain), 0, length(split(".", vm.domain)) - 2))}" : vm.name) : vm.name
+    value: vm.primary_ipv4_address,  # Replace with the actual attribute for the primary IPv4 address
+    type: "A"
+  }]
+
+  dns_records_lbs = [for lb_name, lb in module.hetzner_lb : {
+    name: lb_name
+    value: lb.ipv4_address,  # Replace with the actual attribute for the primary IPv4 address
+    type: "A"
+  }]
+}
+
+output "dns_records" {
+  value = concat(local.dns_records_vms, local.dns_records_lbs)
+}
+
+output "default_domain" {
+  value = var.default_domain
+}
