@@ -19,7 +19,7 @@ EOF
 
 module "libvirt_vm" {
   source     = "diademiemi/vm/libvirt"
-  version    = "6.0.0"
+  version    = "6.0.1"
   depends_on = [
     libvirt_network.network,
     null_resource.download_urls
@@ -78,7 +78,7 @@ module "libvirt_vm" {
 output "dns_records" {
   depends_on = [module.libvirt_vm]
   value = [for vm_name, vm in module.libvirt_vm : {
-    name: vm.domain != null ? (length(split(".", vm.domain)) >= 3 ? "${vm_name}.${join(".", slice(split(".", vm.domain), 0, length(split(".", vm.domain)) - 2))}" : vm_name) : vm_name
+    name: length(split(".", vm.name)) > 2 ? join(".", slice(split(".", vm.name), 0, length(split(".", vm.name)) - 2)) : split(".", vm.name)[0]
     value: split("/", vm.primary_ipv4_address).0,  # Replace with the actual attribute for the primary IPv4 address
     type: "A"
   }]

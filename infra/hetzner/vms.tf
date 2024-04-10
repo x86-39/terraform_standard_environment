@@ -58,7 +58,7 @@ module "hetzner_lb" {
 # Ignore the domain, we get it in the DNS code
 locals {
   dns_records_vms = [for vm_name, vm in module.hetzner_vm : {
-    name: vm.domain != null ? (length(split(".", vm.domain)) >= 3 ? "${vm.name}.${join(".", slice(split(".", vm.domain), 0, length(split(".", vm.domain)) - 2))}" : vm.name) : vm.name
+    name: length(split(".", vm.name)) > 2 ? join(".", slice(split(".", vm.name), 0, length(split(".", vm.name)) - 2)) : split(".", vm.name)[0]
     value: vm.primary_ipv4_address,  # Replace with the actual attribute for the primary IPv4 address
     type: "A"
   }]
