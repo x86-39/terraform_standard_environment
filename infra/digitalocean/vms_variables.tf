@@ -59,6 +59,7 @@ variable "digitalocean_vms" {
 variable "digitalocean_lbs" {
   type = list(object({
     name        = optional(string)
+    domain      = optional(string)
     project     = optional(string)
     region      = optional(string)
     droplet_tag = optional(string)

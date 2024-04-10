@@ -36,11 +36,12 @@ module "do_vm" {
 
 module "do_lb" {
   source  = "diademiemi/loadbalancer/digitalocean"
-  version = "1.0.0"
+  version = "1.1.0"
 
   for_each = { for i, v in var.digitalocean_lbs : i => v }
 
   name             = each.value.name
+  domain          = try(coalesce(each.value.domain, var.default_domain), null)
   project          = try(coalesce(each.value.project, var.default_project), null)
   region           = try(coalesce(each.value.region, var.default_region), null)
   droplet_tag      = each.value.droplet_tag
@@ -64,7 +65,7 @@ locals {
   }]
 
   dns_records_lbs = [for lb_name, lb in module.do_lb : {
-    name: lb.name
+    name: length(split(".", lb.name)) > 2 ? join(".", slice(split(".", lb.name), 0, length(split(".", lb.name)) - 2)) : split(".", lb.name)[0]
     value: lb.ipv4_address,  # Replace with the actual attribute for the primary IPv4 address
     type: "A"
   }]

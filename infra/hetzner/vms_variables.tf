@@ -60,6 +60,7 @@ variable "hetzner_lbs" {
   description = "List of Load Balancers to create"
   type = list(object({
     name = string
+    domain = optional(string)
     location = optional(string)
     network_zone = optional(string)
     datacenter = optional(string)

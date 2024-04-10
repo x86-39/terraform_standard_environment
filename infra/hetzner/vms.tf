@@ -35,7 +35,7 @@ module "hetzner_vm" {
 
 module "hetzner_lb" {
   source     = "diademiemi/loadbalancer/hetzner"
-  version    = "1.0.0"
+  version    = "1.1.0"
 
   depends_on = [
     module.hetzner_vm
@@ -44,6 +44,7 @@ module "hetzner_lb" {
   for_each = { for lb in var.hetzner_lbs : lb.name => lb }
 
   name = each.value.name
+  domain = try(coalesce(each.value.domain, var.default_domain), null)
   location = try(each.value.location, null)
   network_zone = try(coalesce(each.value.network_zone, var.default_network_zone), null)
   targets = each.value.targets
@@ -64,7 +65,7 @@ locals {
   }]
 
   dns_records_lbs = [for lb_name, lb in module.hetzner_lb : {
-    name: lb_name
+    name: length(split(".", lb.name)) > 2 ? join(".", slice(split(".", lb.name), 0, length(split(".", lb.name)) - 2)) : split(".", lb.name)[0]
     value: lb.ipv4_address,  # Replace with the actual attribute for the primary IPv4 address
     type: "A"
   }]
