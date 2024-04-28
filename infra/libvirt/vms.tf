@@ -3,7 +3,7 @@ resource "null_resource" "download_urls" {
     command = <<EOF
 %{ for file in var.download_urls }
 if [ ! -f "${file.dest}" ]; then
-  curl -o "${file.dest}.tmp" "${file.url}"
+  curl -L -o "${file.dest}.tmp" "${file.url}"
   mv "${file.dest}.tmp" "${file.dest}"
 fi
 %{ endfor }
