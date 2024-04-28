@@ -1,6 +1,9 @@
 # Local .terraform directories
 **/.terraform/*
 
+# This file we use to configure remote states, we want to ignore it and keep it local
+**/backend.tf
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
