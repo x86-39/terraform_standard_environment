@@ -1,7 +1,7 @@
-# This file is maintained automatically by "terraform init".
+# This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/ansible/ansible" {
+provider "registry.opentofu.org/ansible/ansible" {
   version     = "1.0.0"
   constraints = "~> 1.0.0"
   hashes = [
@@ -24,30 +24,30 @@ provider "registry.terraform.io/ansible/ansible" {
   ]
 }
 
-provider "registry.terraform.io/cloudflare/cloudflare" {
-  version     = "4.29.0"
+provider "registry.opentofu.org/cloudflare/cloudflare" {
+  version     = "4.52.0"
   constraints = "~> 4.0"
   hashes = [
-    "h1:PwTYuKiXrQjjiFkmlPtXVbNT/d4gfS8hXJE2EndWuvA=",
-    "zh:01f3af4c121bec29a057ec8dc5dd6609fcd0bf651c7cdb8aa03de407516fffd2",
-    "zh:14d8aa9b3482dda6fb189bc202c225259d074ce595466f80a23cffc5e0aa7eb5",
-    "zh:3e7d5466e8992ea2c8256c983e8e34bb586192df2010f2222e88f359a468115d",
-    "zh:4355f1e4cd9418106bf79cd00170fee5e503355048a9485c6a5cd22dc7949828",
+    "h1:NTaOQfYINA0YTG/V1/9+SYtgX1it63+cBugj4WK4FWc=",
+    "zh:19be1a91c982b902c42aba47766860dfa5dc151eed1e95fd39ca642229381ef0",
+    "zh:1de451c4d1ecf7efbe67b6dace3426ba810711afdd644b0f1b870364c8ae91f8",
+    "zh:352b4a2120173298622e669258744554339d959ac3a95607b117a48ee4a83238",
+    "zh:3c6f1346d9154afbd2d558fabb4b0150fc8d559aa961254144fe1bc17fe6032f",
+    "zh:4c4c92d53fb535b1e0eff26f222bbd627b97d3b4c891ec9c321268676d06152f",
+    "zh:53276f68006c9ceb7cdb10a6ccf91a5c1eadd1407a28edb5741e84e88d7e29e8",
+    "zh:7925a97773948171a63d4f65bb81ee92fd6d07a447e36012977313293a5435c9",
+    "zh:7dfb0a4496cfe032437386d0a2cd9229a1956e9c30bd920923c141b0f0440060",
     "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
-    "zh:901c0e875364084b65c5d3aec69717b05ee3c147b4bf585fce413678c784c100",
-    "zh:a8470085540a1620cd4b9561f8578c99e9b04b5410a4198a4b2ef93470e3c7ec",
-    "zh:a85715022889d64ccdde46d17bd46554951bc80db26b9d622c60d2ec46082c4d",
-    "zh:ac5e05e936ffc6abe5407b87b1e65633c0facce2944d6a8199db4e47c09170a3",
-    "zh:b3d70a629cb145ac32bebe0924e38796b5f54556b90ac0f8dca9cf469bb259ef",
-    "zh:db04c9ee548a9ddb5e7c47d2d7ef9216a58e637af77cfbff923af76883a1cc7b",
-    "zh:e1412a17cdc53ac8fce625910c74584a45d593e6ff20c76922b8b9fc2888b48f",
-    "zh:e3da8759c033d7bfab8ebcf1d636058e2e080dd27aed89f1edbc5df5168a9e8e",
-    "zh:f4f61c62830e552451e9f171a3a69d76c33359ec0db85aa720335edbf0b1a453",
-    "zh:f6aaa156c61fb2a06de349a3e3ddd1e5b4bcea1acf8bf99fa3b67e6885bb92ae",
+    "zh:8d4aa79f0a414bb4163d771063c70cd991c8fac6c766e685bac2ee12903c5bd6",
+    "zh:a67540c13565616a7e7e51ee9366e88b0dc60046e1d75c72680e150bd02725bb",
+    "zh:a936383a4767f5393f38f622e92bf2d0c03fe04b69c284951f27345766c7b31b",
+    "zh:d4887d73c466ff036eecf50ad6404ba38fd82ea4855296b1846d244b0f13c380",
+    "zh:e9093c8bd5b6cd99c81666e315197791781b8f93afa14fc2e0f732d1bb2a44b7",
+    "zh:efd3b3f1ec59a37f635aa1d4efcf178734c2fcf8ddb0d56ea690bec342da8672",
   ]
 }
 
-provider "registry.terraform.io/hetznercloud/hcloud" {
+provider "registry.opentofu.org/hetznercloud/hcloud" {
   version     = "1.44.1"
   constraints = "~> 1.0, ~> 1.44.0"
   hashes = [

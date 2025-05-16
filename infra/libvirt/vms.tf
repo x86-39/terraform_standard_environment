@@ -18,7 +18,7 @@ EOF
 }
 
 module "libvirt_vm" {
-  source     = "diademiemi/vm/libvirt"
+  source     = "x86-39/vm/libvirt"
   version    = "6.0.1"
   depends_on = [
     libvirt_network.network,

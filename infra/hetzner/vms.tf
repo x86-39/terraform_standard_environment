@@ -1,5 +1,5 @@
 module "hetzner_vm" {
-  source     = "diademiemi/vm/hetzner"
+  source     = "x86-39/vm/hetzner"
   version    = "2.0.0"
 
   depends_on = [
@@ -34,7 +34,7 @@ module "hetzner_vm" {
 }
 
 module "hetzner_lb" {
-  source     = "diademiemi/loadbalancer/hetzner"
+  source     = "x86-39/loadbalancer/hetzner"
   version    = "1.1.0"
 
   depends_on = [
