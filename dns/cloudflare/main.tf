@@ -17,7 +17,7 @@ resource "cloudflare_record" "sites" {
   }
   zone_id         = coalesce(each.value.domain_id, try(data.cloudflare_zone.zone[each.key].id, ""), try(data.cloudflare_zone.default_zone[0].id, ""), var.cloudflare_default_domain_id)
   name            = each.value.name
-  value           = each.value.value
+  content           = each.value.value
   type            = coalesce(each.value.type, var.cloudflare_default_type)
   ttl             = coalesce(each.value.ttl, var.cloudflare_default_ttl) # Cloudflare provider uses seconds
   proxied         = coalesce(each.value.proxied, var.cloudflare_default_proxied)
