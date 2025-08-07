@@ -27,12 +27,6 @@ variable "cloudflare_default_proxied" {
     default = false
 }
 
-variable "cloudflare_default_allow_overwrite" {
-    description = "Default Cloudflare allow_overwrite"
-    type = bool
-    default = true
-}
-
 variable "cloudflare_default_type" {
     description = "Default Cloudflare type"
     type = string
@@ -50,6 +44,5 @@ variable "dns_records" {
         type = optional(string)
         ttl = optional(number)
         proxied = optional(bool)
-        allow_overwrite = optional(bool)
     }))
 }
