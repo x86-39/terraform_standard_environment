@@ -1,6 +1,6 @@
 module "hetzner_vm" {
   source     = "x86-39/vm/hetzner"
-  version    = "2.0.0"
+  version    = "2.1.1"
 
   depends_on = [
     hcloud_network.private_network,
@@ -35,7 +35,7 @@ module "hetzner_vm" {
 
 module "hetzner_lb" {
   source     = "x86-39/loadbalancer/hetzner"
-  version    = "1.1.0"
+  version    = "1.2.1"
 
   depends_on = [
     module.hetzner_vm

@@ -1,6 +1,6 @@
 module "do_vm" {
   source  = "x86-39/vm/digitalocean"
-  version = "1.0.0"
+  version = "1.1.1"
 
   for_each = { for vm in var.digitalocean_vms : vm.name => vm }
 
@@ -36,7 +36,7 @@ module "do_vm" {
 
 module "do_lb" {
   source  = "x86-39/loadbalancer/digitalocean"
-  version = "1.1.0"
+  version = "1.2.1"
 
   for_each = { for i, v in var.digitalocean_lbs : i => v }
 

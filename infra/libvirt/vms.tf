@@ -19,7 +19,7 @@ EOF
 
 module "libvirt_vm" {
   source     = "x86-39/vm/libvirt"
-  version    = "6.0.1"
+  version    = "6.1.0"
   depends_on = [
     libvirt_network.network,
     null_resource.download_urls
