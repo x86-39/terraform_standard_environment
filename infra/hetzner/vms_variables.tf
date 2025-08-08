@@ -98,3 +98,12 @@ variable "hetzner_lbs" {
   }))
   default = []
 }
+
+variable "additional_dns_records" {
+  type = list(object({
+    name  = string
+    value = string
+    type  = string
+  }))
+  default = []
+}

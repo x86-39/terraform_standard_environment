@@ -77,11 +77,11 @@ module "libvirt_vm" {
 # Ignore the domain, we get it in the DNS code
 output "dns_records" {
   depends_on = [module.libvirt_vm]
-  value = [for vm_name, vm in module.libvirt_vm : {
+  value = concat([for vm_name, vm in module.libvirt_vm : {
     name: length(split(".", vm.name)) > 2 ? join(".", slice(split(".", vm.name), 0, length(split(".", vm.name)) - 2)) : split(".", vm.name)[0]
     value: split("/", vm.primary_ipv4_address).0,  # Replace with the actual attribute for the primary IPv4 address
     type: "A"
-  }]
+  }], var.additional_dns_records)
 }
 
 output "default_domain" {

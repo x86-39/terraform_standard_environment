@@ -72,7 +72,7 @@ locals {
 }
 
 output "dns_records" {
-  value = concat(local.dns_records_vms, local.dns_records_lbs)
+  value = concat(local.dns_records_vms, local.dns_records_lbs, var.additional_dns_records)
 }
 
 output "default_domain" {
